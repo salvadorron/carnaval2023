@@ -14,15 +14,15 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-
+import banner from '../assets/img/banner.png';
 const lightColor = 'rgba(255, 255, 255, 0.7)';
-
 function Header(props) {
   const { onDrawerToggle } = props;
 
   return (
     <React.Fragment>
-      <AppBar color="primary" position="sticky" elevation={0}>
+    <div className="banner" style={{backgroundImage: 'url('+banner+')'}}>
+      <AppBar color="transparent" position="sticky" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
@@ -70,7 +70,7 @@ function Header(props) {
       </AppBar>
       <AppBar
         component="div"
-        color="primary"
+        color="transparent"
         position="static"
         elevation={0}
         sx={{ zIndex: 0 }}
@@ -102,7 +102,7 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
+      <AppBar component="div" position="static" color='transparent' elevation={0} sx={{ zIndex: 0 }}>
         <Tabs value={0} textColor="inherit">
           <Tab label="Usuarios" />
           <Tab label="Sign-in method" />
@@ -110,6 +110,7 @@ function Header(props) {
           <Tab label="Uso" />
         </Tabs>
       </AppBar>
+      </div>
     </React.Fragment>
   );
 }
