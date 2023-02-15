@@ -7,30 +7,29 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
-import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
-import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
-import PublicIcon from '@mui/icons-material/Public';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
-import TimerIcon from '@mui/icons-material/Timer';
-import SettingsIcon from '@mui/icons-material/Settings';
-import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
+import PlaceIcon from '@mui/icons-material/Place';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 const categories = [
   {
-    id: 'Menu',
+    id: 'Actividades',
     children: [
       {
-        id: 'Inicio',
-        icon: <HomeIcon />,
+        id: 'Registrar Actividades',
+        icon: <AssignmentIcon />,
         active: true,
         url: '#',
       },
-      { id: 'Registrar Actividades', icon: <DnsRoundedIcon />, url: '#' },
-      { id: 'Actividades Desarrolladas', icon: <PermMediaOutlinedIcon />, url: '#' },
-      { id: 'Salir', icon: <PublicIcon />, url: '#'},
+      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, url: '#' },
+    ],
+    
+  },
+  {
+    id: 'Extras',
+    children: [
+      {id: 'Salir', icon: <ExitToAppIcon />, url: '#'},
     ],
   },
 ];
@@ -57,13 +56,13 @@ export default function Navigator(props) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          Carnaval 2023
+          CARNAVALES 2023
         </ListItem>
         <ListItem sx={{ ...item, ...itemCategory }}>
           <ListItemIcon>
-            <HomeIcon />
+            <PlaceIcon />
           </ListItemIcon>
-          <ListItemText>Ven Guarico Tu Destino</ListItemText>
+          <ListItemText>Guarico Tu Destino</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }}>
