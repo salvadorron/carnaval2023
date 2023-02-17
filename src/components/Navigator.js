@@ -11,6 +11,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import {BrowserRouter, Link} from 'react-router-dom';
 
 const categories = [
   {
@@ -20,16 +21,16 @@ const categories = [
         id: 'Registrar Actividades',
         icon: <AssignmentIcon />,
         active: true,
-        url: '#',
+        to: '/register',
       },
-      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, url: '#' },
+      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, to: '/finished' },
     ],
     
   },
   {
     id: 'Extras',
     children: [
-      {id: 'Salir', icon: <ExitToAppIcon />, url: '#'},
+      {id: 'Salir', icon: <ExitToAppIcon />, to: '/logout'},
     ],
   },
 ];
@@ -43,11 +44,18 @@ const item = {
   },
 };
 
+const itemLink = {
+  textDecoration: 'none',
+  color: 'rgba(255, 255, 255, 0.7)',
+  width: '100%',
+}
+
 const itemCategory = {
   boxShadow: '0 -1px 0 rgb(255,255,255,0.1) inset',
   py: 1.5,
   px: 3,
 };
+
 
 export default function Navigator(props) {
   const { ...other } = props;
@@ -69,13 +77,17 @@ export default function Navigator(props) {
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, url}) => (
-              <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item} href={url}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText>{childId}</ListItemText>
-                </ListItemButton>
-              </ListItem>
+            {children.map(({ id: childId, icon, active, to}) => (
+              <BrowserRouter>
+                <ListItem disablePadding key={childId}>
+                  <Link to={to} style={itemLink}>
+                    <ListItemButton selected={active} sx={item}>
+                      <ListItemIcon>{icon}</ListItemIcon>
+                      <ListItemText>{childId}</ListItemText>
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+              </BrowserRouter>
             ))}
 
             <Divider sx={{ mt: 2 }} />
