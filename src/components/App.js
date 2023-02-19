@@ -7,8 +7,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Header from './Header';
-import { BrowserRouter } from 'react-router-dom';
-import MyRoutes from './MyRoutes';
+import RoutesConfig from '../RoutesConfig';
 
 function Copyright() {
   return (
@@ -27,7 +26,7 @@ let theme = createTheme({
     primary: {
       light: '#63ccff',
       main: '#009be5',
-      dark: '#006db3',
+      dark: '#006db3', 
     },
   },
   typography: {
@@ -167,7 +166,7 @@ theme = {
 
 const drawerWidth = 256;
 
-export default function Paperbase() {
+export default function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -200,9 +199,7 @@ export default function Paperbase() {
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-            <BrowserRouter>
-                <MyRoutes />
-            </BrowserRouter>
+              <RoutesConfig />
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />

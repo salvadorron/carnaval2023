@@ -11,7 +11,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import {BrowserRouter, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const categories = [
   {
@@ -78,7 +78,6 @@ export default function Navigator(props) {
               <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
             </ListItem>
             {children.map(({ id: childId, icon, active, to}) => (
-              <BrowserRouter>
                 <ListItem disablePadding key={childId}>
                   <Link to={to} style={itemLink}>
                     <ListItemButton selected={active} sx={item}>
@@ -87,7 +86,6 @@ export default function Navigator(props) {
                     </ListItemButton>
                   </Link>
                 </ListItem>
-              </BrowserRouter>
             ))}
 
             <Divider sx={{ mt: 2 }} />

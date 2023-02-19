@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-function Content(){
+function Home(){
   return (
     <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
       <AppBar
@@ -56,4 +56,4 @@ function Content(){
   );
 }
 
-export default Content;
+export default Home;
