@@ -1,9 +1,8 @@
 import React from 'react';
-import Home from './components/modules/Home';
+import {Home, Register} from './components/Modules';
 import {Routes, Route} from 'react-router-dom';
 
 
-const Register =  () => <h1>Register</h1>
 const Finished = () => <h1>Finished</h1>
 const Logout = () => <h1>Logout</h1>
 

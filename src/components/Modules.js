@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-function Home(){
+export function Home(){
   return (
     <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
       <AppBar
@@ -56,4 +56,32 @@ function Home(){
   );
 }
 
-export default Home;
+export function Register(){
+  return (
+    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+      <AppBar
+        position="static"
+        color="default"
+        elevation={0}
+        sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}
+      >
+        <Toolbar>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs>
+            <Typography variant="h2" color="text.primary" align="left">
+              Registrar Actividad
+            </Typography>
+            </Grid>
+            
+          </Grid>
+        </Toolbar>
+
+      </AppBar>
+      <Grid>
+        <TextField>
+          
+        </TextField>
+      </Grid>
+    </Paper>
+  );
+}

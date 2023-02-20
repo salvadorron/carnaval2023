@@ -35,6 +35,11 @@ let theme = createTheme({
       fontSize: 26,
       letterSpacing: 0.5,
     },
+    h2: {
+      fontWeight: 300,
+      fontSize: 24,
+      letterSpacing: 0.5,
+    }
   },
   shape: {
     borderRadius: 8,
