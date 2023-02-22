@@ -10,7 +10,7 @@ function Header(props) {
 
   return (
     <React.Fragment>
-      <AppBar color="transparent" position="sticky" elevation={0} style={{background: 'url('+ banner +') no-repeat center / 35%  ', height: '8em'}}>
+      <AppBar color="transparent" position="relative" elevation={0} style={{background: 'url('+ banner +') no-repeat center / 35%  ', height: '8em'}}>
         <div className='flag'></div>
       </AppBar>
     </React.Fragment>
