@@ -1,4 +1,4 @@
-CREATE DATABASE carnaval2023_db
+CREATE DATABASE carnaval2023
 
 CREATE TABLE activities(
     id SERIAL PRIMARY KEY,
@@ -8,5 +8,5 @@ CREATE TABLE activities(
     recreational INTEGER,
     ecological INTEGER,
     formative INTEGER,
-    preventive INTEGER,
+    preventive INTEGER
 );
