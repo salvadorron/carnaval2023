@@ -31,15 +31,18 @@ const updateActivity = async (req, res, next) => {
         const { entity, sport, cultural, recreational, ecological, formative, preventive } = req.body;
 
         const result = await pool.query(
-            "UPDATE activities SET entity = $1, sport = $2, cultural = $3, recreational = $4, ecological = $5, formative = $6, preventive = $7 WHERE id = $8" ,
+            "UPDATE activities SET entity = $1, sport = $2, cultural = $3, recreational = $4, ecological = $5, formative = $6, preventive = $7 WHERE id = $8 RETURNING *" ,
             [entity, sport, cultural, recreational, ecological, formative, preventive, id]
             );
 
-        if (result.rows.length === 0) return res.status(404).json({
-            message: "Activity not found"
-        })
+        if (result.rows.length === 0) {
+            return res.status(404).json(
+                { message: "Activity not found" }
+            );
+            
+        }
 
-        return res.json(result.rows[0])
+    return res.json(result.rows[0])
 
    } catch (error) {
         next(error);
