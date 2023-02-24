@@ -60,28 +60,47 @@ export function Register(){
     preventive: 0,
   };
 
+  const [formData, setFormData] = React.useState(formDataInit);
+  
+  const {entity, sport, recreational, ecological, cultural, formative, preventive} = formData;
+
   const [open, setOpen] = React.useState(false);
   
-  const [formData, setFormData] = React.useState(formDataInit);
 
-  const {entity, sport, recreational, ecological, cultural, formative, preventive} = formData;
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+
+  const formValidator = () => {
+    // Desarrollar...
+  }
+
 
   const handleOnChange = e => {
     console.log([e.target.name], e.target.value);
     setFormData({...formData, [e.target.name]: e.target.value});
   }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
+  const handleConfirm = async () => {
     setOpen(false);
-  };
 
+    const res = await fetch('http://localhost:4000/activity', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-  const handleConfirm = (entity, sport, recreational, ecological, cultural, formative, preventive) => {
-    setOpen(false);
+    const data = await res.json();
+
+    console.log(data);
+
 
     setTimeout(() =>{
       alert('Registro Exitoso!');
@@ -351,6 +370,7 @@ export function Register(){
                     color="primary"
                     onClick={handleClickOpen}
                     endIcon={<SaveIcon />}
+                    disabled={formValidator()}
                   >
                     Guardar
                   </Button>
@@ -375,7 +395,7 @@ export function Register(){
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleClose}>Cancelar</Button>
-                    <Button onClick={() => handleConfirm(entity, sport, recreational, ecological, cultural, formative, preventive)}>Confirmar</Button>
+                    <Button onClick={handleConfirm}>Confirmar</Button>
                   </DialogActions>
                   </Dialog>
 
