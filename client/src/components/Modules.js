@@ -1,8 +1,15 @@
-import * as React from 'react';
+import {React, useEffect, useState} from 'react';
 import {AppBar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Toolbar, Typography, Paper, Grid, Card, CardContent, Button, TextField, Tooltip, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import SaveIcon from '@mui/icons-material/Save'
+import SaveIcon from '@mui/icons-material/Save';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 export function Home(){
   return (
     <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
@@ -48,7 +55,7 @@ export function Home(){
   );
 }
 
-export function Register(){
+export function Activity(){
 
   const formDataInit = {
     entity: '',
@@ -60,11 +67,11 @@ export function Register(){
     preventive: 0,
   };
 
-  const [formData, setFormData] = React.useState(formDataInit);
+  const [formData, setFormData] = useState(formDataInit);
   
   const {entity, sport, recreational, ecological, cultural, formative, preventive} = formData;
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   
 
   const handleClickOpen = () => {
@@ -412,4 +419,92 @@ export function Register(){
 
     
   );
+}
+
+
+export function ActivityList() {
+
+  const [activity, setActivity] = useState([]);
+
+  const log = 10;
+
+  const loadActivity = async () => {
+
+    const response = await fetch('http://localhost:4000/activity');
+    const data = await response.json();
+
+    setActivity(data);
+  }
+  
+  useEffect(() => {
+    loadActivity();
+  }, []);  
+
+
+  return (
+    
+    <>
+
+    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+      
+      <AppBar
+        position="static"
+        color="default" 
+        elevation={0}
+        sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}
+      >
+          <Toolbar>
+            <Grid container spacing={2} alignItems="center">
+              <Grid my={2} item xs>
+              <Typography variant="h2" color="text.primary" align="left">
+                Actividades Desarrolladas
+                
+              </Typography>
+              </Grid>
+              
+            </Grid>
+          </Toolbar>
+
+      </AppBar>
+
+
+      
+        <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Entidad</TableCell>
+            <TableCell align="right">Tipo de Actividad</TableCell>
+            <TableCell align="right">Cantidad</TableCell>
+            <TableCell align="right">Total</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {activity.map(element => {
+            return(
+              <>
+              <TableRow
+              key={element.entity}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {element.entity}
+              </TableCell>
+              <TableCell align="right">Deportivas</TableCell>
+              <TableCell align="right">{element.sport}</TableCell>
+              <TableCell align="right">{log}</TableCell>
+            </TableRow>
+           
+            </>
+            );
+          })}
+            
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </Paper>
+
+    </>
+  );
+
 }
