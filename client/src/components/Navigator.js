@@ -23,7 +23,7 @@ const categories = [
         active: true,
         to: '/register',
       },
-      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, to: '/finished' },
+      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, to: '/activityList' },
     ],
     
   },
