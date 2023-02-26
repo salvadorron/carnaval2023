@@ -9,7 +9,7 @@ const RoutesConfig = () => {
     return( 
             <Routes>
                 <Route path='/' element={<Home />}></Route>
-                <Route path='/newActivity' element={<Activity />} />
+                <Route path='/createActivity' element={<Activity />} />
                 <Route path='/activityList' element={<ActivityList />} />
                 <Route path='/logout' element={<Logout />} />
             </Routes>
