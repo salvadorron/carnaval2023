@@ -1,16 +1,16 @@
 const pool = require('../db');
 
-const getActivities = async (req, res, next) => {
+const getActivity = async (req, res, next) => {
 
     try {
-        const activities = await pool.query("SELECT * FROM activities")
-        res.json(activities.rows);
+        const activity = await pool.query("SELECT *, SUM(sport+cultural+recreational+ecological+formative+preventive) AS total FROM activities GROUP BY id")
+        res.json(activity.rows);
     } catch (error) {
         next(error);
     }
 }
 
-const insertActivities = async (req, res, next) => {
+const createActivity = async (req, res, next) => {
     try {
         const { entity, sport, cultural, recreational, ecological, formative, preventive } = req.body;
         result = await pool.query("INSERT INTO activities (entity, sport, cultural, recreational, ecological, formative, preventive) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *", [
@@ -69,8 +69,8 @@ const deleteActivity = async (req, res, next) => {
 }
 
 module.exports = {
-    getActivities,
-    insertActivities,
+    getActivity,
+    createActivity,
     updateActivity,
     deleteActivity
 }
