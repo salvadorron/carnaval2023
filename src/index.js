@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const activitiesRoutes = require('./routes/activities.routes');
+const activityRoutes = require('./routes/activity.routes');
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(morgan('dev'));
 
 app.use(express.json());
 
-app.use(activitiesRoutes);
+app.use(activityRoutes);
 
 app.use((err, req, res, next) => {
     return res.json({
