@@ -426,7 +426,16 @@ export function ActivityList() {
 
   const [activity, setActivity] = useState([]);
 
-  const log = 10;
+  const activityValues = {
+    allSport: 0,
+    allCultural: 0,
+    allRecreational: 0,
+    allEcological: 0,
+    allFormative: 0,
+    allPreventive: 0,
+    allTotal: 0,
+  }; 
+
 
   const loadActivity = async () => {
 
@@ -474,13 +483,26 @@ export function ActivityList() {
         <TableHead>
           <TableRow>
             <TableCell>Entidad</TableCell>
-            <TableCell align="right">Tipo de Actividad</TableCell>
-            <TableCell align="right">Cantidad</TableCell>
-            <TableCell align="right">Total</TableCell>
+            <TableCell align="right">Deportivas</TableCell>
+            <TableCell align="right">Recreativas</TableCell>
+            <TableCell align="right">Ecologicas</TableCell>
+            <TableCell align="right">Culturales</TableCell>
+            <TableCell align="right">Formativas</TableCell>
+            <TableCell align="right">Preventivas</TableCell>
+            <TableCell align="right">Totales</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {activity.map(element => {
+            
+              activityValues.allSport += element.sport;
+              activityValues.allRecreational += element.recreational;
+              activityValues.allEcological += element.ecological;
+              activityValues.allCultural += element.cultural;
+              activityValues.allFormative += element.formative;
+              activityValues.allPreventive += element.preventive;
+              activityValues.allTotal += Number.parseInt(element.total);
+
             return(
               <>
               <TableRow
@@ -488,17 +510,32 @@ export function ActivityList() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {element.entity}
+                {element.entity} 
               </TableCell>
-              <TableCell align="right">Deportivas</TableCell>
               <TableCell align="right">{element.sport}</TableCell>
-              <TableCell align="right">{log}</TableCell>
+              <TableCell align="right">{element.recreational}</TableCell>
+              <TableCell align="right">{element.ecological}</TableCell>
+              <TableCell align="right">{element.cultural}</TableCell>
+              <TableCell align="right">{element.formative}</TableCell>
+              <TableCell align="right">{element.preventive}</TableCell>
+              <TableCell align="right">{element.total}</TableCell>
             </TableRow>
-           
             </>
             );
           })}
-            
+            {
+            activity.length? 
+            <TableRow>
+              <TableCell>Totales</TableCell>
+              <TableCell align="right">{activityValues.allSport}</TableCell>
+              <TableCell align="right">{activityValues.allRecreational}</TableCell>
+              <TableCell align="right">{activityValues.allEcological}</TableCell>
+              <TableCell align="right">{activityValues.allCultural}</TableCell>
+              <TableCell align="right">{activityValues.allFormative}</TableCell>
+              <TableCell align="right">{activityValues.allPreventive}</TableCell>
+              <TableCell align="right">{activityValues.allTotal}</TableCell>
+            </TableRow> : "No hay resultados"
+            }
         </TableBody>
       </Table>
     </TableContainer>
