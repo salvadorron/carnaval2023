@@ -21,7 +21,7 @@ const categories = [
         id: 'Registrar Actividades',
         icon: <AssignmentIcon />,
         active: true,
-        to: '/register',
+        to: '/createActivity',
       },
       { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, to: '/activityList' },
     ],
