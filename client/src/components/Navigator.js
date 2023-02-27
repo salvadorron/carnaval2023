@@ -13,6 +13,8 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import {Link} from 'react-router-dom';
 
+
+
 const categories = [
   {
     id: 'Actividades',
@@ -20,17 +22,17 @@ const categories = [
       {
         id: 'Registrar Actividades',
         icon: <AssignmentIcon />,
-        active: true,
+        active: 0,
         to: '/createActivity',
       },
-      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, to: '/activityList' },
+      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, active: 1,  to: '/activityList' },
     ],
     
   },
   {
     id: 'Extras',
     children: [
-      {id: 'Salir', icon: <ExitToAppIcon />, to: '/logout'},
+      {id: 'Salir', icon: <ExitToAppIcon />, active: 2, to: '/logout'},
     ],
   },
 ];
@@ -60,6 +62,14 @@ const itemCategory = {
 export default function Navigator(props) {
   const { ...other } = props;
 
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleListItemClick = (e, index) => {
+    setSelectedIndex(index);
+  };
+
+
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -80,7 +90,7 @@ export default function Navigator(props) {
             {children.map(({ id: childId, icon, active, to}) => (
                 <ListItem disablePadding key={childId}>
                   <Link to={to} style={itemLink}>
-                    <ListItemButton selected={active} sx={item}>
+                    <ListItemButton onClick={(e) => handleListItemClick(e, active)} selected={selectedIndex === active} sx={item}>
                       <ListItemIcon>{icon}</ListItemIcon>
                       <ListItemText>{childId}</ListItemText>
                     </ListItemButton>
