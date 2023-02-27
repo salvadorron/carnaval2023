@@ -7,35 +7,44 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PlaceIcon from '@mui/icons-material/Place';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Image from 'mui-image';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import {Link} from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import imgCarnaval from '../assets/img/carnaval2023.png';
 
 
 
 const categories = [
   {
+    id: 'Guarico Tu Destino',
+    children: [
+      {id: 'Inicio', icon: <HomeIcon />, active: 0, to: '/'},
+    ],
+  },
+  {
+    
     id: 'Actividades',
     children: [
       {
         id: 'Registrar Actividades',
         icon: <AssignmentIcon />,
-        active: 0,
+        active: 1,
         to: '/createActivity',
       },
-      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, active: 1,  to: '/activityList' },
+      { id: 'Actividades Desarrolladas', icon: <AssignmentTurnedInIcon />, active: 2,  to: '/activityList' },
     ],
     
   },
-  {
-    id: 'Extras',
-    children: [
-      {id: 'Salir', icon: <ExitToAppIcon />, active: 2, to: '/logout'},
-    ],
-  },
 ];
+
+const itemImage = {
+  img: imgCarnaval,
+  title: 'Carnaval 2023',
+  width: '100%',
+  height: '164px',
+}
 
 const item = {
   py: '2px',
@@ -52,36 +61,30 @@ const itemLink = {
   width: '100%',
 }
 
-const itemCategory = {
-  boxShadow: '0 -1px 0 rgb(255,255,255,0.1) inset',
-  py: 1.5,
-  px: 3,
-};
-
-
 export default function Navigator(props) {
   const { ...other } = props;
 
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (e, index) => {
     setSelectedIndex(index);
   };
 
-
-
-  return (
+  return ( 
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          CARNAVALES 2023
-        </ListItem>
-        <ListItem sx={{ ...item, ...itemCategory }}>
-          <ListItemIcon>
-            <PlaceIcon />
-          </ListItemIcon>
-          <ListItemText>Guarico Tu Destino</ListItemText>
-        </ListItem>
+          <Image 
+            src={itemImage.img}
+            height={itemImage.height}
+            width={itemImage.width}
+            fit='contain'
+            showLoading={false}
+            errorIcon={true}
+            shift={null}
+            distance='100px'
+            shiftDuration={900}
+            bgColor='inherit'
+            />
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>

@@ -1,7 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import {AppBar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Toolbar, Typography, Paper, Grid, Card, CardContent, Button, TextField, Tooltip, IconButton} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import RefreshIcon from '@mui/icons-material/Refresh';
+import {AppBar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Toolbar, Typography, Paper, Grid, Card, CardContent, Button, TextField} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -21,41 +19,20 @@ export function Home(){
       >
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
-            <Grid item>
-              <SearchIcon color="inherit" sx={{ display: 'block' }} />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                fullWidth
-                placeholder="Buscar por direccion de correo, numero de celular, o usuario UID"
-                InputProps={{
-                  disableUnderline: true,
-                  sx: { fontSize: 'default' },
-                }}
-                variant="standard"
-              />
-            </Grid>
-            <Grid item>
-              <Button variant="contained" sx={{ mr: 1 }}>
-                Agregar Usuario
-              </Button>
-              <Tooltip title="Refrescar">
-                <IconButton>
-                  <RefreshIcon color="inherit" sx={{ display: 'block' }} />
-                </IconButton>
-              </Tooltip>
-            </Grid>
+            
           </Grid>
         </Toolbar>
       </AppBar>
       <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
-        No hay usuarios en este proyecto todavia
+        Pagina de inicio (Por implementar)
       </Typography>
     </Paper>
   );
 }
 
 export function Activity(){
+
+  
 
   const formDataInit = {
     entity: '',
@@ -493,51 +470,53 @@ export function ActivityList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {activity.map(element => {
-            
-              activityValues.allSport += element.sport;
-              activityValues.allRecreational += element.recreational;
-              activityValues.allEcological += element.ecological;
-              activityValues.allCultural += element.cultural;
-              activityValues.allFormative += element.formative;
-              activityValues.allPreventive += element.preventive;
-              activityValues.allTotal += Number.parseInt(element.total);
+          {
+            activity.map(element => {
+                activityValues.allSport += element.sport;
+                activityValues.allRecreational += element.recreational;
+                activityValues.allEcological += element.ecological;
+                activityValues.allCultural += element.cultural;
+                activityValues.allFormative += element.formative;
+                activityValues.allPreventive += element.preventive;
+                activityValues.allTotal += Number.parseInt(element.total);
 
-            return(
-              <>
-              <TableRow
-              key={element.entity}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {element.entity} 
-              </TableCell>
-              <TableCell align="right">{element.sport}</TableCell>
-              <TableCell align="right">{element.recreational}</TableCell>
-              <TableCell align="right">{element.ecological}</TableCell>
-              <TableCell align="right">{element.cultural}</TableCell>
-              <TableCell align="right">{element.formative}</TableCell>
-              <TableCell align="right">{element.preventive}</TableCell>
-              <TableCell align="right">{element.total}</TableCell>
-            </TableRow>
-            </>
-            );
-          })}
-            {
-            activity.length? 
+              return(
+                <>
+                <TableRow
+                key={element.entity}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {element.entity} 
+                </TableCell>
+                <TableCell align="right">{element.sport}</TableCell>
+                <TableCell align="right">{element.recreational}</TableCell>
+                <TableCell align="right">{element.ecological}</TableCell>
+                <TableCell align="right">{element.cultural}</TableCell>
+                <TableCell align="right">{element.formative}</TableCell>
+                <TableCell align="right">{element.preventive}</TableCell>
+                <TableCell align="right">{element.total}</TableCell>
+              </TableRow>
+              </>
+              );
+            })
+          }
+          {
+          activity.length?
             <TableRow>
-              <TableCell>Totales</TableCell>
-              <TableCell align="right">{activityValues.allSport}</TableCell>
-              <TableCell align="right">{activityValues.allRecreational}</TableCell>
-              <TableCell align="right">{activityValues.allEcological}</TableCell>
-              <TableCell align="right">{activityValues.allCultural}</TableCell>
-              <TableCell align="right">{activityValues.allFormative}</TableCell>
-              <TableCell align="right">{activityValues.allPreventive}</TableCell>
-              <TableCell align="right">{activityValues.allTotal}</TableCell>
-            </TableRow> : "No hay resultados"
-            }
+            <TableCell>Totales</TableCell>
+            <TableCell align="right">{activityValues.allSport}</TableCell>
+            <TableCell align="right">{activityValues.allRecreational}</TableCell>
+            <TableCell align="right">{activityValues.allEcological}</TableCell>
+            <TableCell align="right">{activityValues.allCultural}</TableCell>
+            <TableCell align="right">{activityValues.allFormative}</TableCell>
+            <TableCell align="right">{activityValues.allPreventive}</TableCell>
+            <TableCell align="right">{activityValues.allTotal}</TableCell>
+          </TableRow> : null
+          }
         </TableBody>
       </Table>
+      {!activity.length? <Typography align='center' my={2}>No hay resultados</Typography>: null}
     </TableContainer>
     </Paper>
 
