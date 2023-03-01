@@ -7,6 +7,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Home(){
   return (
@@ -31,8 +33,6 @@ export function Home(){
 }
 
 export function Activity(){
-
-  
 
   const formDataInit = {
     entity: '',
@@ -74,22 +74,23 @@ export function Activity(){
 
   const handleConfirm = async () => {
     setOpen(false);
-
-    const res = await fetch('http://localhost:4000/activity', {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
+    const res = await toast.promise(
+      fetch('http://localhost:4000/activity', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' }
+      }),
+      {
+        pending: 'Procesando solicitud...',
+        success: 'Registro Exitoso!',
+        error: 'Error de Registro'
+      }
+    );
+    
     const data = await res.json();
+    
 
     console.log(data);
-
-
-    setTimeout(() =>{
-      alert('Registro Exitoso!');
-      setFormData(formDataInit);
-    }, 1000);
 
   }
 
@@ -358,6 +359,7 @@ export function Activity(){
                   >
                     Guardar
                   </Button>
+                  <ToastContainer />
 
                   <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Dialogo de Confirmacion</DialogTitle>

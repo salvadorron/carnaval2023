@@ -9,6 +9,7 @@ import Navigator from './Navigator';
 import Header from './Header';
 import RoutesConfig from '../RoutesConfig';
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
