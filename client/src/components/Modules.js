@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import {AppBar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Toolbar, Typography, Paper, Grid, Card, CardContent, Button, TextField} from '@mui/material';
+import {AppBar, Toolbar, Typography, Paper, Grid, Card, CardContent, Button, TextField} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 export function Home(){
   return (
@@ -48,51 +49,76 @@ export function Activity(){
   
   const {entity, sport, recreational, ecological, cultural, formative, preventive} = formData;
 
-  const [open, setOpen] = useState(false);
-  
+  const [error, setError] = useState({
+    onsport: false,
+    onrecreational: false,
+    onecological: false,
+    oncultural: false,
+    onformative: false,
+    onpreventive: false
+  });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  }
+  const {onsport, onrecreational, onecological, oncultural, onformative, onpreventive} = error;
 
+  const handleClickOpen = async () => {
+    if(window.confirm(
+      `Los siguientes campos van a ser registrados:      
+    -------------------------------
+      Entidad: ${entity}
+      Recreativas: ${recreational}
+      Deportivas: ${sport}
+      Culturales: ${cultural}
+      Ecologicas: ${ecological}
+      Preventivas: ${preventive}
+      Formativas: ${formative}
+      ¿Desea continuar?
+    -------------------------------`)) {
 
-  const handleClose = () => {
-    setOpen(false);
-  }
+      const res = await toast.promise(
+        fetch('http://localhost:4000/activity', {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: { 'Content-Type': 'application/json' }
+        }),
+        {
+          pending: 'Procesando solicitud...',
+          success: 'Registro Exitoso!',
+          error: 'Error de Registro'
+        }
+      );
+      
+      const data = await res.json();
+      
+      if(res.ok) setFormData(formDataInit);
+      
 
+      console.log(data);
 
-  const formValidator = () => {
-    // Desarrollar...
+    };
   }
 
 
   const handleOnChange = e => {
-    console.log([e.target.name], e.target.value);
+    console.log('on'+e.target.name)
+    if(!e.target.validity.valid || !e.target.value) {
+      setError({...error, ['on'+e.target.name]:true});
+    }
+    else{
+      setError({...error, ['on'+e.target.name]:false});
+    }
+
+    //console.log([e.target.name], e.target.value);
     setFormData({...formData, [e.target.name]: e.target.value});
   }
 
 
-  const handleConfirm = async () => {
-    setOpen(false);
-    const res = await toast.promise(
-      fetch('http://localhost:4000/activity', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: { 'Content-Type': 'application/json' }
-      }),
-      {
-        pending: 'Procesando solicitud...',
-        success: 'Registro Exitoso!',
-        error: 'Error de Registro'
-      }
-    );
-    
-    const data = await res.json();
-    
-
-    console.log(data);
-
+  const isError = () => {
+    if(error.oncultural || error.onsport || error.onecological || error.onformative || error.onpreventive || error.onrecreational){
+      return false;
+    }
+    return true;
   }
+  
 
 
   return (
@@ -175,12 +201,13 @@ export function Activity(){
                 <Grid item xs={2}>
 
                   <TextField 
-                    error={false}
-                    type="number"
+                    error={onsport}
+                    type="text"
                     name="sport"
                     value={sport}
                     onChange={handleOnChange}
                     margin="dense"
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   />
 
                 </Grid>
@@ -206,12 +233,13 @@ export function Activity(){
                 <Grid item xs={2}>
 
                   <TextField 
-                    error={false}
-                    type="number"
+                    error={onrecreational}
+                    type="text"
                     name="recreational"
                     value={recreational}
                     onChange={handleOnChange}
                     margin="dense"
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   />
 
                 </Grid>
@@ -237,12 +265,13 @@ export function Activity(){
                 <Grid item xs={2}>
 
                   <TextField 
-                    error={false}
-                    type="number"
+                    error={onecological}
+                    type="text"
                     name="ecological"
                     value={ecological}
                     onChange={handleOnChange}
                     margin="dense"
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   />
 
                 </Grid>
@@ -268,12 +297,13 @@ export function Activity(){
                 <Grid item xs={2}>
 
                   <TextField 
-                    error={false}
-                    type="number"
+                    error={oncultural}
+                    type="text"
                     name="cultural"
                     value={cultural}
                     onChange={handleOnChange}
                     margin="dense"
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   />
 
                 </Grid>
@@ -300,12 +330,13 @@ export function Activity(){
                 <Grid item xs={2}>
 
                   <TextField 
-                    error={false}
-                    type="number"
+                    error={onformative}
+                    type="text"
                     name="formative"
                     value={formative}
                     onChange={handleOnChange}
                     margin="dense"
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   />
 
                 </Grid>
@@ -331,12 +362,13 @@ export function Activity(){
                 <Grid item xs={2}>
 
                   <TextField
-                    error={false}
-                    type="number"
+                    error={onpreventive}
+                    type="text"
                     name="preventive"
                     value={preventive}
                     onChange={handleOnChange}
                     margin="dense"
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                     
                   />
 
@@ -355,36 +387,11 @@ export function Activity(){
                     color="primary"
                     onClick={handleClickOpen}
                     endIcon={<SaveIcon />}
-                    disabled={formValidator()}
+                    disabled={!entity || !isError()}
                   >
                     Guardar
                   </Button>
                   <ToastContainer />
-
-                  <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Dialogo de Confirmacion</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText>
-                      Los siguientes campos van a ser registrados: 
-                    </DialogContentText>
-                    <DialogContentText>------------------------------------------------------------</DialogContentText>
-                    <DialogContentText>Entidad: {entity}</DialogContentText>
-                    <DialogContentText>Deportivas: {sport}</DialogContentText>
-                    <DialogContentText>Recreativas: {recreational}</DialogContentText>
-                    <DialogContentText>Ecologicas: {ecological}</DialogContentText>
-                    <DialogContentText>Culturales: {cultural}</DialogContentText>
-                    <DialogContentText>Formativas: {formative}</DialogContentText>
-                    <DialogContentText>Preventivas: {preventive}</DialogContentText>
-                    <DialogContentText>------------------------------------------------------------</DialogContentText>
-                    <DialogContentText align='right'>¿Desea continuar?</DialogContentText>
-                   
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose}>Cancelar</Button>
-                    <Button onClick={handleConfirm}>Confirmar</Button>
-                  </DialogActions>
-                  </Dialog>
-
 
                 </Grid>
         
