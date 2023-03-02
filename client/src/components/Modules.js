@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react';
+import {React, useRef, useEffect, useState} from 'react';
 import {AppBar, Toolbar, Typography, Paper, Grid, Card, CardContent, Button, TextField} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import Table from '@mui/material/Table';
@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {PDFExport, savePDF} from '@pro'
 
 
 export function Home(){
@@ -412,6 +413,12 @@ export function ActivityList() {
 
   const [activity, setActivity] = useState([]);
 
+  const pdf = useRef(null);
+
+  const handleExportToPDF = () => {
+    savePDF(pdf.current, {paperSize: 'A4'});
+  }
+
   const activityValues = {
     allSport: 0,
     allCultural: 0,
@@ -437,10 +444,10 @@ export function ActivityList() {
 
 
   return (
-    
+
     <>
 
-    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }} ref={pdf}>
       
       <AppBar
         position="static"
@@ -527,6 +534,7 @@ export function ActivityList() {
       </Table>
       {!activity.length? <Typography align='center' my={2}>No hay resultados</Typography>: null}
     </TableContainer>
+    <Button onClick={handleExportToPDF}>Guardar PDF</Button>
     </Paper>
 
     </>
