@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useRef} from "react";
+import { React, useEffect, useState} from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -6,9 +6,9 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import {DataGrid, GridToolbar} from "@mui/x-data-grid";
+import {DataGrid} from "@mui/x-data-grid";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import { savePDF } from '@progress/kendo-react-pdf';
+
 
 export default function ActivityList() {
 
@@ -92,39 +92,23 @@ export default function ActivityList() {
   
     const [loading, setLoading] = useState(true);
   
-    const pdfComponent = useRef(null);
-  
-  
-    const handleExportToPDF = () => {
-      savePDF(pdfComponent.current,{
-        paperSize: "auto",
-        fileName: "Reporte",
-        margin: {top: 40, right: 40, bottom: 30, left: 30},
-      }
-      );
-    };
-  
-  /*   const activityValues = {
-      allSport: 0,
-      allCultural: 0,
-      allRecreational: 0,
-      allEcological: 0,
-      allFormative: 0,
-      allPreventive: 0,
-      allTotal: 0,
-    }; */
   
     const loadActivity = async () => {
-      const response = await fetch("http://localhost:4000/activity");
-      const data = await response.json();
-      setActivity(data);
-      setLoading(data? false : true);
+      try{
+        const response = await fetch("http://localhost:4000/activity");
+        const data = await response.json();
+        setActivity(data);
+        setLoading(data? false : true);
+      }
+      catch(e){
+        alert(e.message);
+      }
+      
     };
   
     useEffect(() => {
       loadActivity();
     }, []);
-  
     
   
     return (
@@ -150,7 +134,7 @@ export default function ActivityList() {
                     <Button
                       color="error"
                       variant="contained"
-                      onClick={handleExportToPDF}
+                      onClick
                       endIcon={<PictureAsPdfIcon />}
                     >
                       Descargar
@@ -178,7 +162,6 @@ export default function ActivityList() {
                 },
             }}
             pageSizeOptions={[5]}
-          slots={{pagination: '10'}}
             />
         </Paper>
       </>
