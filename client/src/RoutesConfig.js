@@ -1,5 +1,7 @@
 import React from 'react';
-import {ActivityList, Home, Activity} from './components/Modules';
+import Home from './components/Home';
+import Activity from './components/Activity';
+import ActivityList from './components/ActivityList';
 import {Routes, Route} from 'react-router-dom';
 
 
