@@ -3,7 +3,7 @@ const pool = require('../db');
 const getActivity = async (req, res, next) => {
 
     try {
-        const activity = await pool.query("SELECT *, SUM(sport+cultural+recreational+ecological+formative+preventive) AS total FROM activities GROUP BY id")
+        const activity = await pool.query("SELECT *, SUM(sport+cultural+recreational+ecological+formative+preventive) AS total FROM activities GROUP BY id ORDER BY id")
         res.json(activity.rows);
     } catch (error) {
         next(error);
