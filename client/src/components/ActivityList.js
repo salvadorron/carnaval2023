@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import {DataGrid} from "@mui/x-data-grid";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import PDFDocument from './PDFDocument';
 
 
 export default function ActivityList() {
@@ -134,10 +135,11 @@ export default function ActivityList() {
                     <Button
                       color="error"
                       variant="contained"
-                      onClick
+                      onClick={() => PDFDocument(activity)}
                       endIcon={<PictureAsPdfIcon />}
+                      disabled={activity.length > 1? false: true}
                     >
-                      Descargar
+                      Generar Reporte
                     </Button>
                   </Stack>
                 </Grid>
