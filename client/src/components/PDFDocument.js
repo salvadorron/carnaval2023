@@ -39,7 +39,7 @@ async function PDFDocument (activity) {
     const width = doc.internal.pageSize.getWidth();
 
     const imgData = canvas.toDataURL('image/png');
-    doc.addImage(imgData, 'PNG', -40, 2);
+    doc.addImage(imgData, 'PNG', -15, 2);
     doc.setFont('Helvetica', 'normal')
     doc.setFontSize(24);
     doc.text("Actividades Desarrolladas", width/2, 45, {align: 'center'});
