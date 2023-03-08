@@ -9,7 +9,8 @@ function Header(props) {
 
   return (
     <React.Fragment>
-      <AppBar id="appbar" color="transparent" position="relative" elevation={0} style={{background: 'url('+ banner +') no-repeat center / 35%  ', height: '8em'}}>
+      <AppBar className="header" color="transparent" position="relative" elevation={0} >
+      <img id='img' src={banner} alt='banner' width={250} height={250} />
       </AppBar>
     </React.Fragment>
   );
